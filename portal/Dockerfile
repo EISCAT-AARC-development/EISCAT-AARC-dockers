@@ -1,6 +1,6 @@
 FROM debian
 
-RUN apt-get update && apt-get upgrade -y --no-install-recommends \
+RUN apt-get update && apt-get upgrade -y --no-install-recommends
 RUN apt-get install -y --no-install-recommends \
     build-essential \
     git \
@@ -10,6 +10,7 @@ RUN apt-get install -y --no-install-recommends \
     python3-pip \
     rsyslog \
     apache2
+
 RUN apt-get clean
 
 RUN pip3 install git+git@github.com:EISCAT-AARC-development/schedule.git
