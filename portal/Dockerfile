@@ -2,19 +2,19 @@ FROM debian
 
 RUN apt-get update && apt-get upgrade -y --no-install-recommends
 RUN apt-get install -y --no-install-recommends \
-    build-essential \
+    ssh \
     git \
-    python3-setuptools-git \
-    python3-mysqldb \
-    python3-dev \
-    python3-pip \
+    python-mysqldb \
     rsyslog \
     apache2
 
 RUN apt-get clean
 
-RUN pip3 install git+git@github.com:EISCAT-AARC-development/schedule.git
+RUN mkdir /var/www/html/htdocs
+RUN cd /var/www/html/htdocs
+RUN git clone git@github.com:EISCAT-AARC-development/schedule.git
 
+COPY config/ssh/id_rsa.pub .ssh/id_rsa.pub
 COPY config/apache/schedule.conf /etc/apache2/sites-available/schedule.conf
 COPY config/apache/schedule_ssl.conf /etc/apache2/sites-available/schedule_ssl.conf
 RUN a2enmod cgi
