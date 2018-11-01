@@ -44,5 +44,5 @@ RUN a2dissite 000-default
 RUN a2ensite schedule
 RUN a2ensite schedule_ssl
 
-ENTRYPOINT service apache2 start && /bin/bash
+ENTRYPOINT service apache2 start && service mysql start && /bin/bash
 # ENTRYPOINT /bin/bash
