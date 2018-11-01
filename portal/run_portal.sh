@@ -12,16 +12,18 @@ RUN_DIR=$PWD
 CONFIG_DIR="$RUN_DIR/config"
 
 # Start SVS
+docker start $CONTAINER_NAME || \
 docker run -it \
     -v $PWD/workdir:/opt/workdir \
     -e DATA_DIR=/var/portal \
     -w /var/svs \
+    --name $CONTAINER_NAME \
     --net eiscat-aarc.local \
-    --ip 192.168.111.1 \
-    --add-host=portal.eiscat-aarc.local:192.168.111.1 \
-    --add-host=data.eiscat-aarc.local:192.168.111.2 \
+    --ip 192.168.111.100 \
+    --add-host=portal.eiscat-aarc.local:192.168.111.100 \
+    --add-host=data.eiscat-aarc.local:192.168.111.101 \
     --add-host=idp.eiscat-aarc.local:192.168.111.200 \
     --hostname portal.eiscat-aarc.local \
-    --expose 80 \
-    --expose 443 \
+    --publish 8080:80 \
+    --publish 8443:443 \
     $IMAGE_TAG
