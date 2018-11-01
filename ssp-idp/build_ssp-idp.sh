@@ -11,4 +11,3 @@ fi
 echo "Building  docker container $IMAGE_TAG ..."
 # Build the docker image
 docker build -t $IMAGE_TAG .
-

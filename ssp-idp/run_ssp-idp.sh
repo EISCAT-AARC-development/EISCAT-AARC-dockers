@@ -22,10 +22,10 @@ docker start -i $CONTAINER_NAME || docker run -it \
     --name $CONTAINER_NAME \
     --net eiscat-aarc.local \
     --ip 192.168.111.200 \
-    --add-host=portal.eiscat-aarc.local:192.168.111.1 \
-    --add-host=data.eiscat-aarc.local:192.168.111.2 \
+    --add-host=portal.eiscat-aarc.local:192.168.111.100 \
+    --add-host=data.eiscat-aarc.local:192.168.111.101 \
     --add-host=idp.eiscat-aarc.local:192.168.111.200 \
     --hostname idp.eiscat-aarc.local \
-    --expose 80 \
-    --expose 443 \
+    --publish 9080:80 \
+    --publish 9443:443 \
     $IMAGE_TAG
