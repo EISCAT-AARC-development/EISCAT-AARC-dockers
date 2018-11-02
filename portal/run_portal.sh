@@ -22,7 +22,6 @@ docker start $CONTAINER_NAME || \
 	   --ip 192.168.111.100 \
 	   --hostname portal.eiscat-aarc.local \
 	   --add-host=idp.eiscat-aarc.local:192.168.111.200 \
-	   --publish 8080:80 \
 	   --publish 8443:443 \
 	   --publish 37009:37009 \
 	   $IMAGE_TAG

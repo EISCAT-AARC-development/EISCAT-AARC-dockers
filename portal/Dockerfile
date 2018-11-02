@@ -4,19 +4,13 @@ RUN apt-get update && apt-get upgrade -y --no-install-recommends
 
 # Install dependencies
 RUN apt-get install -y --no-install-recommends \
-    ssh \
-    rsync \
-    git \
-    cvs \
-    python-mysqldb \
-    mariadb-client \
-    mariadb-server \
-    bzip2 \
-    rsyslog \
+    ssh rsync \
+    git cvs \
+    python-mysqldb mariadb-client mariadb-server \
+    bzip2 netstat rsyslog \
     ssl-cert \
     apache2 \
-    vim \
-    less
+    vim less
 RUN apt-get clean
 
 # Install schedule CGI
@@ -41,7 +35,7 @@ COPY config/apache/schedule_ssl.conf /etc/apache2/sites-available/schedule_ssl.c
 RUN a2enmod ssl
 RUN a2enmod cgid
 RUN a2dissite 000-default
-RUN a2ensite schedule
+# RUN a2ensite schedule
 RUN a2ensite schedule_ssl
 
 ENTRYPOINT service apache2 start && service mysql start && /bin/bash
