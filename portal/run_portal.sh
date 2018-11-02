@@ -1,5 +1,5 @@
 #! /bin/bash
-IMAGE_TAG=eiscat-aarc/portal:v3
+IMAGE_TAG=eiscat-aarc/portal:v4
 CONTAINER_NAME=eiscat-aarc-portal
 
 # Build the docker image if needed
