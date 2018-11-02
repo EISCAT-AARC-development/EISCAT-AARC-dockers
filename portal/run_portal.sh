@@ -12,9 +12,8 @@ RUN_DIR=$PWD
 CONFIG_DIR="$RUN_DIR/config"
 
 # Start data portal and server
-docker start $CONTAINER_NAME || \
+#docker start $CONTAINER_NAME || \
     docker run -it \
-	   --name $CONTAINER_NAME \
 	   --volume $PWD/workdir:/opt/workdir \
 	   --volume /archive:/data/archive \
 	   --env DATA_DIR=/var/portal \
