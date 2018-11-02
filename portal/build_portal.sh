@@ -1,6 +1,6 @@
 #! /bin/bash
 
-IMAGE_TAG=eiscat-aarc/portal:v1
+IMAGE_TAG=eiscat-aarc/portal:v4
 
 # As the build command is being called, we assume we need to build a new image.
 # To be sure we therefor first remove existign ones
