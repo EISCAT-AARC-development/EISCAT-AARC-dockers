@@ -7,7 +7,7 @@ RUN apt-get install -y --no-install-recommends \
     ssh rsync \
     git cvs \
     python-mysqldb mariadb-client mariadb-server \
-    bzip2 netstat rsyslog \
+    bzip2 net-tools rsyslog \
     ssl-cert \
     apache2 \
     vim less
