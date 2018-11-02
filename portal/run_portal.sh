@@ -13,7 +13,7 @@ CONFIG_DIR="$RUN_DIR/config"
 
 # Start data portal and server
 docker start $CONTAINER_NAME || \
-    docker run -d \
+    docker run -it \
 	   --name $CONTAINER_NAME \
 	   --volume $PWD/workdir:/opt/workdir \
 	   --volume /archive:/data/archive \
@@ -24,5 +24,5 @@ docker start $CONTAINER_NAME || \
 	   --add-host=idp.eiscat-aarc.local:192.168.111.200 \
 	   --publish 8080:80 \
 	   --publish 8443:443 \
-	   --publish 37009 \
+	   --publish 37009:37009 \
 	   $IMAGE_TAG
