@@ -1,3 +1,4 @@
+
 # Setup Debian system
 FROM debian
 RUN apt-get update && apt-get upgrade -y --no-install-recommends
@@ -28,13 +29,23 @@ RUN a2dissite 000-default
 RUN a2ensite schedule
 RUN a2ensite schedule_ssl
 
-RUN mkdir /var/www/auth
-COPY src/auth.py /var/www/auth
-# TODO edit conf.py in schedule/ for this path
+# setup eiscat user with shell and home dir
+#RUN useradd -m -s /bin/bash eiscat
+
+# Copy auth scrpt to expected location
+COPY src/auth.py /var/www/auth/auth.py
 
 #Set up file catalogue db
 COPY config/db.sql.bz2 /var/tmp
 COPY config/permission.sql /var/tmp
 COPY src/provision_db.sh /var/tmp
 
+<<<<<<< HEAD
 ENTRYPOINT service apache2 start && service mysql start && /var/tmp/provision_db.sh &&/bin/bash
+=======
+# Add script to show hostname and ip of container
+COPY src/show_ip.sh /var/tmp
+
+ENTRYPOINT service apache2 start && service mysql start && /var/tmp/provision_db.sh && /var/tmp/show_ip.sh &&/bin/bash
+
+>>>>>>> 83c3463d4f709c5424328ba75adb8cc511791f55
