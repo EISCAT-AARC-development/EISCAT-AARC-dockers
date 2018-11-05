@@ -1,0 +1,20 @@
+[req]
+prompt=no
+default_bits=2048
+encrypt_key=no
+default_md=sha1
+distinguished_name=dn
+# PrintableStrings only
+string_mask=MASK:0002
+x509_extensions=ext
+
+default_keyfile=sp-key.pem
+
+[dn]
+CN=portal.eiscat-aarc.local
+
+[ext]
+subjectAltName= DNS.1:portal.eiscat-aarc.local, \
+                URI.1:https://portal.eiscat-aarc.local/shibboleth
+subjectKeyIdentifier=hash
+

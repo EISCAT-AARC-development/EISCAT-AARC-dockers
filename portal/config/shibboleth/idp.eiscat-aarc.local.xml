@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:mdrpi="urn:oasis:names:tc:SAML:metadata:rpi" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" entityID="https://idp.eiscat-aarc.local/saml2/idp/metadata.php">
+  <md:Extensions>
+    <mdrpi:RegistrationInfo xmlns:mdrpi="urn:oasis:names:tc:SAML:metadata:rpi" registrationAuthority="urn:mace:idp.foo.bar"/>
+  </md:Extensions>
+  <md:IDPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+    <md:KeyDescriptor use="signing">
+      <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:X509Data>
+          <ds:X509Certificate>MIIDEzCCAfugAwIBAgIJALE/C95ujvMRMA0GCSqGSIb3DQEBCwUAMCAxHjAcBgNVBAMMFWlkcC5laXNjYXQtYWFyYy5sb2NhbDAeFw0xODEwMjYxNTE4NDBaFw0yODEwMjMxNTE4NDBaMCAxHjAcBgNVBAMMFWlkcC5laXNjYXQtYWFyYy5sb2NhbDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAL75H1sMn0mex2L9IGcH7GjlX84R4Fk8BfBmqa5Xc0NdSgTWg65238rbKJVPeS6ZkDloIbLnEnOu3OsF2hmQKTHjsiaaDyrtjSZsDafYV8qIvQSSPChSZN5SwK+VvAA4dZoO6dxyzMFxvLQUWvTZuJjX/kfUVkR2+7O7pcSDE1RNqgVktcReS7ontP5YhfsbnQa/SFbm1sHbMENc2AxciipZpCmfs5D4/O3yN1QYP2h4tXGFJwnAOI4MYdo54N986x8GFveBLRBeDwPMLwoAVQb9/vdUfGwGeWzxd5zaFRq3hqp3JIdZZQe/63T8scEyCsSNCpAzBOLfneZOarmXs9MCAwEAAaNQME4wHQYDVR0OBBYEFMiYJuJkbtUgIuqnUfrjgNndtnF7MB8GA1UdIwQYMBaAFMiYJuJkbtUgIuqnUfrjgNndtnF7MAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAGyM+8RAS14RNu/MGBfHia6kDijjRLXepI+rkMYM57weq2ViE50YIVmIxV0UWTnAOzrUAdj9E63EIBqkVAUcs3qItlYxMEWFQ1DbQB9Gmdo+cMc4imVdGIZ4OD1heG4RFrBuSRe7SWCD2x5qPft+yH/6TKF+M6YJS+PTH2L2eSTPmeFGd/03YWM+8262Pi8be08mPbdFdPtXWKwSp7pwlZkNQE+npxdYOwxB4ZsnTaqz0vdhB1sCM1lJn8itMFa7fBZkiK5SWFUXdSxKSfZrP6BLjRoU4/QKagb5nHpzztp2NT/bP6bCUoVs3ACVjG5fntX5wiRpvwLxBkVomziE5xY=</ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </md:KeyDescriptor>
+    <md:KeyDescriptor use="encryption">
+      <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:X509Data>
+          <ds:X509Certificate>MIIDEzCCAfugAwIBAgIJALE/C95ujvMRMA0GCSqGSIb3DQEBCwUAMCAxHjAcBgNVBAMMFWlkcC5laXNjYXQtYWFyYy5sb2NhbDAeFw0xODEwMjYxNTE4NDBaFw0yODEwMjMxNTE4NDBaMCAxHjAcBgNVBAMMFWlkcC5laXNjYXQtYWFyYy5sb2NhbDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAL75H1sMn0mex2L9IGcH7GjlX84R4Fk8BfBmqa5Xc0NdSgTWg65238rbKJVPeS6ZkDloIbLnEnOu3OsF2hmQKTHjsiaaDyrtjSZsDafYV8qIvQSSPChSZN5SwK+VvAA4dZoO6dxyzMFxvLQUWvTZuJjX/kfUVkR2+7O7pcSDE1RNqgVktcReS7ontP5YhfsbnQa/SFbm1sHbMENc2AxciipZpCmfs5D4/O3yN1QYP2h4tXGFJwnAOI4MYdo54N986x8GFveBLRBeDwPMLwoAVQb9/vdUfGwGeWzxd5zaFRq3hqp3JIdZZQe/63T8scEyCsSNCpAzBOLfneZOarmXs9MCAwEAAaNQME4wHQYDVR0OBBYEFMiYJuJkbtUgIuqnUfrjgNndtnF7MB8GA1UdIwQYMBaAFMiYJuJkbtUgIuqnUfrjgNndtnF7MAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAGyM+8RAS14RNu/MGBfHia6kDijjRLXepI+rkMYM57weq2ViE50YIVmIxV0UWTnAOzrUAdj9E63EIBqkVAUcs3qItlYxMEWFQ1DbQB9Gmdo+cMc4imVdGIZ4OD1heG4RFrBuSRe7SWCD2x5qPft+yH/6TKF+M6YJS+PTH2L2eSTPmeFGd/03YWM+8262Pi8be08mPbdFdPtXWKwSp7pwlZkNQE+npxdYOwxB4ZsnTaqz0vdhB1sCM1lJn8itMFa7fBZkiK5SWFUXdSxKSfZrP6BLjRoU4/QKagb5nHpzztp2NT/bP6bCUoVs3ACVjG5fntX5wiRpvwLxBkVomziE5xY=</ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </md:KeyDescriptor>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://idp.eiscat-aarc.local/saml2/idp/SingleLogoutService.php"/>
+    <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</md:NameIDFormat>
+    <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://idp.eiscat-aarc.local/saml2/idp/SSOService.php"/>
+  </md:IDPSSODescriptor>
+  <md:ContactPerson contactType="technical">
+    <md:GivenName>Contact</md:GivenName>
+    <md:EmailAddress>postmaster@idp.eiscat-aarc.local</md:EmailAddress>
+  </md:ContactPerson>
+</md:EntityDescriptor>
+

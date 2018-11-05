@@ -18,8 +18,8 @@ $metadata['__DYNAMIC:1__'] = array(
     ),
 
 	// X.509 key and certificate. Relative to the cert directory.
-	'privatekey' => 'idp.inacademia.local.pem',
-	'certificate' => 'idp.inacademia.local.crt',
+	'privatekey' => 'idp.eiscat-aarc.local.pem',
+	'certificate' => 'idp.eiscat-aarc.local.crt',
 
 	/*
 	 * Authentication source to use. Must be one that is configured in

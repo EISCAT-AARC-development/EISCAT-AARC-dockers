@@ -11,7 +11,8 @@ RUN apt-get install -y --no-install-recommends \
     bzip2 net-tools rsyslog \
     ssl-cert \
     apache2 \
-    vim less
+    vim less \
+    libapache2-mod-shib2
 RUN apt-get clean
 
 # Install schedule CGI
@@ -45,5 +46,27 @@ COPY src/provision_db.sh /var/tmp
 # Add script to show hostname and ip of container
 COPY src/show_ip.sh /var/tmp
 
-ENTRYPOINT service apache2 start && service mysql start && /var/tmp/provision_db.sh && /var/tmp/show_ip.sh &&/bin/bash
+# Additions to add Shibboleth SP
+#COPY config/shibboleth/apache-cert.pem \
+#     config/shibboleth/apache-chain.pem \
+#     /etc/ssl/certs/
+
+#COPY config/shibboleth/apache-key.pem \
+#    /etc/ssl/private/
+
+#COPY config/shibboleth/default-ssl.conf \
+#     /etc/apache2/sites-available/
+
+#RUN a2enmod ssl && \
+#    a2ensite default-ssl
+
+COPY config/shibboleth/idp.eiscat-aarc.local.xml config/shibboleth/sp-cert.pem config/shibboleth/sp-key.pem /etc/shibboleth/
+
+COPY config/shibboleth/shibboleth2.xml config/shibboleth/attribute-map.xml /etc/shibboleth/
+
+RUN cd /etc/shibboleth && chown _shibd sp-*.pem && chmod go= sp-key.pem
+
+COPY config/shibboleth/shibd.sh /var/tmp
+
+ENTRYPOINT service apache2 start && service mysql start && service shibd start && service shibd status && /var/tmp/provision_db.sh && /var/tmp/show_ip.sh &&/bin/bash
 
