@@ -1,5 +1,5 @@
 #! /bin/bash
-IMAGE_TAG=eiscat-aarc/portal:v4
+IMAGE_TAG=eiscat-aarc/portal:v5
 CONTAINER_NAME=eiscat-aarc-portal
 
 # Build the docker image if needed
@@ -12,15 +12,18 @@ RUN_DIR=$PWD
 CONFIG_DIR="$RUN_DIR/config"
 
 # Start data portal and server
-#docker start $CONTAINER_NAME || \
+docker start $CONTAINER_NAME || \
     docker run -it \
+	   --name $CONTAINER_NAME \
 	   --volume $PWD/workdir:/opt/workdir \
 	   --volume /archive:/data/archive \
 	   --env DATA_DIR=/var/portal \
+	   -w /var/svs \
 	   --net eiscat-aarc.local \
 	   --ip 192.168.111.100 \
 	   --hostname portal.eiscat-aarc.local \
 	   --add-host=idp.eiscat-aarc.local:192.168.111.200 \
+	   --publish 8080:80 \
 	   --publish 8443:443 \
 	   --publish 37009:37009 \
 	   $IMAGE_TAG

@@ -25,7 +25,7 @@ COPY config/apache/schedule_ssl.conf /etc/apache2/sites-available/schedule_ssl.c
 RUN a2enmod ssl
 RUN a2enmod cgid
 RUN a2dissite 000-default
-# RUN a2ensite schedule
+RUN a2ensite schedule
 RUN a2ensite schedule_ssl
 
 RUN mkdir /var/www/auth
@@ -33,12 +33,8 @@ COPY src/auth.py /var/www/auth
 # TODO edit conf.py in schedule/ for this path
 
 #Set up file catalogue db
-RUN /etc/init.d/mysql start
 COPY config/db.sql.bz2 /var/tmp
-COPY config/permission.sql /var/tmp
 COPY config/permission.sql /var/tmp
 COPY src/provision_db.sh /var/tmp
 
 ENTRYPOINT service apache2 start && service mysql start && /var/tmp/provision_db.sh &&/bin/bash
-#ENTRYPOINT service apache2 start && service mysql start && /bin/bash
-# ENTRYPOINT /bin/bash
