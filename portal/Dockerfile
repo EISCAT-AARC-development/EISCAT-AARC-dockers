@@ -30,10 +30,10 @@ RUN a2dissite 000-default
 RUN a2ensite schedule_ssl
 
 # setup eiscat user with shell and home dir
-RUN useradd -m -s /bin/bash eiscat
+#RUN useradd -m -s /bin/bash eiscat
 
 # Copy auth scrpt to expected location
-COPY src/auth.py /home/eiscat/auth.py
+COPY src/auth.py /var/www/auth/auth.py
 
 #Set up file catalogue db
 RUN /etc/init.d/mysql start
