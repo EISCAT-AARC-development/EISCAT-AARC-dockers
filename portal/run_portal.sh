@@ -18,14 +18,9 @@ CONFIG_DIR="$RUN_DIR/config"
 # Start data portal and server
 docker start $CONTAINER_NAME || \
     docker run -it \
-<<<<<<< HEAD
 	   --name $CONTAINER_NAME \
 	   --volume $PWD/workdir:/opt/workdir \
-	   --volume /archive:/data/archive \
-=======
-	   --volume $PWD/workdir:/var/www/html \
 	   --volume $PWD/archive:/data/archive \
->>>>>>> 83c3463d4f709c5424328ba75adb8cc511791f55
 	   --env DATA_DIR=/var/portal \
 	   -w /var/svs \
 	   --net eiscat-aarc.local \

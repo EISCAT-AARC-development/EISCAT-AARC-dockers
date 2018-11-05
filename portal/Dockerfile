@@ -40,12 +40,7 @@ COPY config/db.sql.bz2 /var/tmp
 COPY config/permission.sql /var/tmp
 COPY src/provision_db.sh /var/tmp
 
-<<<<<<< HEAD
-ENTRYPOINT service apache2 start && service mysql start && /var/tmp/provision_db.sh &&/bin/bash
-=======
 # Add script to show hostname and ip of container
 COPY src/show_ip.sh /var/tmp
 
 ENTRYPOINT service apache2 start && service mysql start && /var/tmp/provision_db.sh && /var/tmp/show_ip.sh &&/bin/bash
-
->>>>>>> 83c3463d4f709c5424328ba75adb8cc511791f55
