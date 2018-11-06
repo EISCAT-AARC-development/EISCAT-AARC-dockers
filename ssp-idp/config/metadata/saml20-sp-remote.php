@@ -7,15 +7,40 @@
 
 $metadata['https://portal.eiscat-aarc.local/shibboleth'] = array (
   'entityid' => 'https://portal.eiscat-aarc.local/shibboleth',
+  'description' => 
+  array (
+    'en' => 'EISCAT Scientific Association',
+  ),
+  'OrganizationName' => 
+  array (
+    'en' => 'EISCAT Scientific Association',
+  ),
+  'name' => 
+  array (
+    'en' => 'EISCAT portal',
+  ),
+  'OrganizationDisplayName' => 
+  array (
+    'en' => 'EISCAT',
+  ),
+  'url' => 
+  array (
+    'en' => 'https://www.eiscat.se',
+  ),
+  'OrganizationURL' => 
+  array (
+    'en' => 'https://www.eiscat.se',
+  ),
   'contacts' => 
   array (
     0 => 
     array (
       'contactType' => 'technical',
-      'givenName' => 'Contact',
+      'givenName' => 'John',
+      'surName' => 'Doe',
       'emailAddress' => 
       array (
-        0 => 'postmaster@idp.eiscat-aarc.local',
+        0 => 'mailto:john.doe@domain.tld',
       ),
     ),
   ),
@@ -110,9 +135,32 @@ eN9aE3+mRIF4J9K/dNGtLw==
 ',
     ),
   ),
-  'RegistrationInfo' => 
+  'UIInfo' => 
   array (
-    'registrationAuthority' => 'urn:mace:idp.foo.bar',
+    'DisplayName' => 
+    array (
+      'en' => 'EISCAT portal',
+    ),
+    'Description' => 
+    array (
+      'en' => 'The EISCAT portal is operated by the EISCAT Scientific Association to provide access to datasets for its researchers and partners',
+    ),
+    'InformationURL' => 
+    array (
+      'en' => 'https://www.eiscat.se',
+    ),
+    'PrivacyStatementURL' => 
+    array (
+    ),
+    'Logo' => 
+    array (
+      0 => 
+      array (
+        'url' => 'https://www.eiscat.se/wp-content/uploads/2017/06/EISCAT-logo-fat-300.png',
+        'height' => 300,
+        'width' => 300,
+      ),
+    ),
   ),
 );
 
