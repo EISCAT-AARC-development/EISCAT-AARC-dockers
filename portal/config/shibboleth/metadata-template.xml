@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata">
+ 
+  <md:SPSSODescriptor>
+ 
+    <md:Extensions>
+      <mdui:UIInfo xmlns:mdui="urn:oasis:names:tc:SAML:metadata:ui">
+        <mdui:DisplayName xml:lang="en">EISCAT portal</mdui:DisplayName>
+        <mdui:Description xml:lang="en">The EISCAT portal is operated by the EISCAT Scientific Association to provide access to datasets for its researchers and partners</mdui:Description>
+        <mdui:InformationURL xml:lang="en">https://www.eiscat.se</mdui:InformationURL>
+        <mdui:Logo height="300" width="300">https://www.eiscat.se/wp-content/uploads/2017/06/EISCAT-logo-fat-300.png</mdui:Logo>
+      </mdui:UIInfo>
+    </md:Extensions>
+ 
+    <!--
+       ... additional metadata, such as additional <AttributeConsumerService> elements when using multiple domains ...
+       ... dodatečká metadata jako např. další <AttributeConsumerService> elementy při použití více domén ...
+    -->
+ 
+  </md:SPSSODescriptor>
+ 
+  <md:Organization>
+    <md:OrganizationName xml:lang="en">EISCAT Scientific Association</md:OrganizationName>
+    <md:OrganizationDisplayName xml:lang="en">EISCAT</md:OrganizationDisplayName>
+    <md:OrganizationURL xml:lang="en">https://www.eiscat.se</md:OrganizationURL>
+  </md:Organization>
+ 
+  <md:ContactPerson contactType="technical">
+    <md:GivenName>John</md:GivenName>
+    <md:SurName>Doe</md:SurName>
+    <md:EmailAddress>mailto:john.doe@domain.tld</md:EmailAddress>
+  </md:ContactPerson>
+ 
+</md:EntityDescriptor>
+
