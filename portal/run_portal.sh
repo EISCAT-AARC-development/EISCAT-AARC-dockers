@@ -19,6 +19,7 @@ CONFIG_DIR="$RUN_DIR/config"
 #docker start $CONTAINER_NAME || \
     docker run -it \
 	   --volume $PWD/workdir:/var/www/html \
+           --volume $PWD/authdir:/var/www/auth \
 	   --volume $PWD/archive:/data/archive \
 	   --env DATA_DIR=/var/portal \
 	   --net eiscat-aarc.local \

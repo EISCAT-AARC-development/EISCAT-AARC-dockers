@@ -12,14 +12,16 @@ RUN apt-get install -y --no-install-recommends \
     ssl-cert \
     apache2 \
     vim less wget \
+    python-pip python-setuptools \
     libapache2-mod-shib2
 RUN apt-get clean
 
 # Install schedule CGI
 RUN mkdir /var/www/html/htdocs
 RUN git config --global http.sslVerify false
-RUN git clone -b federated https://www.github.com/EISCAT-AARC-development/schedule.git /var/www/html/htdocs/schedule
-RUN git clone https://www.github.com/EISCAT-AARC-development/tape_db.git /var/www/html/tape_db
+#RUN git clone -b eiscathq https://www.github.com/EISCAT-AARC-development/schedule.git /var/www/html/htdocs/schedule
+RUN git clone -b eiscathq https://www.github.com/EISCAT-AARC-development/tape_db.git /var/www/html/tape_db
+RUN git clone https://www.github.com/EISCAT-AARC-development/shared-auth.git /var/www/auth
 
 # Set up apache
 COPY config/apache/schedule.conf /etc/apache2/sites-available/schedule.conf
@@ -33,13 +35,19 @@ RUN a2ensite schedule_ssl
 # setup eiscat user with shell and home dir
 #RUN useradd -m -s /bin/bash eiscat
 
-# Copy auth scrpt to expected location
-COPY src/auth.py /var/www/auth/auth.py
+# Copy auth stuff to expected location
+COPY config/requirements.txt /tmp/requirements.txt
+COPY config/private_key.pem /var/www/auth/private_key.pem
+COPY config/public_key.pem /var/www/auth/public_key.pem
+COPY config/institutes.csv /var/www/auth/institutes.csv
+COPY config/people.csv /var/www/auth/people.csv
+COPY config/superusers.txt /var/www/auth/superusers.txt
+
+RUN pip install -r /tmp/requirements.txt
 
 #Set up file catalogue db
 RUN /etc/init.d/mysql start
 COPY config/db.sql.bz2 /var/tmp
-COPY config/permission.sql /var/tmp
 COPY config/permission.sql /var/tmp
 COPY src/provision.sh /var/tmp
 

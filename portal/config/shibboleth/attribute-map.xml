@@ -116,7 +116,6 @@
     <Attribute name="urn:oid:2.5.4.7" id="l"/>
     <Attribute name="urn:oid:2.5.4.15" id="businessCategory"/>
     <Attribute name="urn:oid:2.5.4.19" id="physicalDeliveryOfficeName"/>
-    -->
 
     <Attribute name="urn:mace:dir:attribute-def:cn" id="cn"/>
     <Attribute name="urn:mace:dir:attribute-def:sn" id="sn"/>
@@ -127,7 +126,7 @@
     <Attribute name="urn:mace:dir:attribute-def:telephoneNumber" id="telephoneNumber"/>
     <Attribute name="urn:mace:dir:attribute-def:o" id="o"/>
     <Attribute name="urn:mace:dir:attribute-def:ou" id="ou"/>
-    <!--
+
     <Attribute name="urn:mace:dir:attribute-def:title" id="title"/>
     <Attribute name="urn:mace:dir:attribute-def:initials" id="initials"/>
     <Attribute name="urn:mace:dir:attribute-def:description" id="description"/>
