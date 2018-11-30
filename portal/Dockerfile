@@ -21,7 +21,7 @@ RUN mkdir /var/www/html/htdocs
 RUN git config --global http.sslVerify false
 #RUN git clone -b eiscathq https://www.github.com/EISCAT-AARC-development/schedule.git /var/www/html/htdocs/schedule
 RUN git clone -b eiscathq https://www.github.com/EISCAT-AARC-development/tape_db.git /var/www/html/tape_db
-RUN git clone https://www.github.com/EISCAT-AARC-development/shared-auth.git /var/www/auth
+#RUN git clone https://www.github.com/EISCAT-AARC-development/shared-auth.git /var/www/auth
 
 # Set up apache
 COPY config/apache/schedule.conf /etc/apache2/sites-available/schedule.conf
@@ -29,11 +29,7 @@ COPY config/apache/schedule_ssl.conf /etc/apache2/sites-available/schedule_ssl.c
 RUN a2enmod ssl
 RUN a2enmod cgid
 RUN a2dissite 000-default
-# RUN a2ensite schedule
 RUN a2ensite schedule_ssl
-
-# setup eiscat user with shell and home dir
-#RUN useradd -m -s /bin/bash eiscat
 
 # Copy auth stuff to expected location
 COPY config/requirements.txt /tmp/requirements.txt
