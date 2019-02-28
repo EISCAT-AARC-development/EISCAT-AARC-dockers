@@ -1,5 +1,4 @@
 #! /bin/bash
-set -x
 
 IMAGE_TAG=eiscat-aarc/ssp-idp:v1
 CONTAINER_NAME=eiscat-aarc_ssp-idp
