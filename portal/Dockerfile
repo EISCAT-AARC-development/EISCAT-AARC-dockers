@@ -1,10 +1,10 @@
 
 # Setup Debian system
 FROM debian:stretch-slim
-RUN apt-get update && apt-get upgrade -y --no-install-recommends
 
 # Install dependencies
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update -y; \
+    apt-get install -y --no-install-recommends \
     ssh rsync \
     git cvs \
     python-mysqldb mariadb-client mariadb-server \
@@ -14,7 +14,6 @@ RUN apt-get install -y --no-install-recommends \
     vim less wget \
     python-pip python-setuptools \
     libapache2-mod-shib2
-RUN apt-get clean
 
 # Install schedule CGI
 RUN mkdir /var/www/html/htdocs
@@ -69,5 +68,8 @@ RUN cd /etc/shibboleth && chown _shibd sp-*.pem && chmod go= sp-key.pem
 
 COPY config/shibboleth/shibd.sh /var/tmp
 
-ENTRYPOINT service apache2 start && service mysql start && /var/tmp/provision.sh && service shibd start && service shibd status && /var/tmp/show_ip.sh &&/bin/bash
+COPY mysql-shib-httpd-foreground.sh /var/tmp
 
+RUN chmod 744 /var/tmp/mysql-shib-httpd-foreground.sh
+
+CMD ["/var/tmp/mysql-shib-httpd-foreground.sh"]
