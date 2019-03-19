@@ -40,9 +40,8 @@ example URL is https://portal.eiscat-aarc.local/schedule/tape2.cgi?date=20121105
     * idp_hostname
     * idp_sp
     * ssp_title_suffix
-    * set resolvable_fqdn to false
-    * if you need letsencrypt you should also change:
-        * letsencrypt_email
+    * if you do not need letsencrypt change `resolvable_fqdn` to false, otherwise 
+    leave it to true and set letsencrypt_* variables
 
 * change ssp-idp/run_ssp-idp.sh in the following way:
     * comment out the following arguments 

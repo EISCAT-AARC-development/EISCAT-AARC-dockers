@@ -1,0 +1,15 @@
+---
+# playbook to install and configure a SimpleSamlPHP installation with optional LetsEncrypt certificates
+
+- hosts:
+  - target
+#  connection: local
+  become_user: root
+  become: True
+
+  roles:
+    - { role: common,      tags: common      }
+    - { role: apache,      tags: apache      }
+    - { role: certificate, tags: certificate }
+    - { role: simplesaml,  tags: simplesaml  }
+    - { role: ssl,         tags: ssl         }
