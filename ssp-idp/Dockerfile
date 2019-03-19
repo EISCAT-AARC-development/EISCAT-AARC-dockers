@@ -14,9 +14,11 @@ RUN apt-add-repository -y ppa:ansible/ansible; \
     apt install -y ansible 
 
 RUN git clone https://github.com/OpenConext/OpenConext-DIY  /tmp/ansible/simplesaml-idp
+ 
+COPY config/ansible/openconext-diy.yml  /tmp/ansible/simplesaml-idp/openconext-diy.yml
 
 COPY config/ansible/inventory /tmp/ansible/simplesaml-idp/
-COPY config/ansible/idp.yml /tmp/ansible/simplesaml-idp/group_vars/
+COPY config/ansible/idp.yml /tmp/ansible/simplesaml-idp/group_vars/idp/
 
 RUN  ansible-playbook -i /tmp/ansible/simplesaml-idp/inventory /tmp/ansible/simplesaml-idp/openconext-diy.yml
 
