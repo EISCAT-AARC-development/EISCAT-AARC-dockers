@@ -26,7 +26,7 @@ RUN git config --global http.sslVerify false
 #
 RUN git clone https://www.github.com/EISCAT-AARC-development/schedule.git /var/www/html/htdocs/schedule
 RUN git clone -b eiscathq https://www.github.com/EISCAT-AARC-development/tape_db.git /var/www/html/tape_db
-RUN git clone -b tokenlib_improvements_2 https://www.github.com/EISCAT-AARC-development/shared-auth.git /var/www/auth
+RUN git clone -b tokenlib_improvements https://www.github.com/EISCAT-AARC-development/shared-auth.git /var/www/auth
 
 # Set up apache
 COPY config/apache/schedule.conf /etc/apache2/sites-available/schedule.conf
