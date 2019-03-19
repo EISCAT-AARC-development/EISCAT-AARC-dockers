@@ -25,8 +25,10 @@ RUN git config --global http.sslVerify false
 # you will need to run git clone manually in the workdir directory after the container was build and started
 #
 RUN git clone https://www.github.com/EISCAT-AARC-development/schedule.git /var/www/html/htdocs/schedule
-RUN git clone -b eiscathq https://www.github.com/EISCAT-AARC-development/tape_db.git /var/www/html/tape_db
+RUN git clone -b portal-authz https://www.github.com/EISCAT-AARC-development/tape_db.git /var/www/html/tape_db
 RUN git clone -b tokenlib_improvements https://www.github.com/EISCAT-AARC-development/shared-auth.git /var/www/auth
+
+RUN cp /var/www/auth/* /var/www/html/tape_db
 
 # Set up apache
 COPY config/apache/schedule.conf /etc/apache2/sites-available/schedule.conf
