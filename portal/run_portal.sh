@@ -1,4 +1,5 @@
 #! /bin/bash
+
 TYPE=dev
 IMAGE_TAG=eiscat-aarc/portal:v6
 CONTAINER_NAME=eiscat-aarc-portal
@@ -13,19 +14,23 @@ RUN_DIR=$PWD
 CONFIG_DIR="$RUN_DIR/config"
 
 
-# Start data portal and server
-#docker start $CONTAINER_NAME || \
-    docker run -it \
-	   --env DATA_DIR=/var/portal \
-	   --net eiscat-aarc.local \
-	   --ip 192.168.111.100 \
-	   --hostname portal.eiscat-aarc.local \
-	   --add-host=idp.eiscat-aarc.local:192.168.111.200 \
-	   --publish 8443:443 \
-	   --publish 37009:37009 \
-	   $IMAGE_TAG
+if [ "$(docker ps -a -q -f name=$CONTAINER_NAME)" != "" ]; then
+    echo "docker container $CONTAINER_NAME exists"
+    echo "starting $CONTAINER_NAME"
+    docker start $CONTAINER_NAME
+else
+    echo "no docker container found"
+    echo "creating container $CONTAINER_NAME from image $IMAGE_TAG"
+    docker run -d \
+        --name $CONTAINER_NAME \
+        --env DATA_DIR=/var/portal \
+        --net eiscat-aarc.local \
+        --ip 192.168.111.100 \
+        --hostname portal.eiscat-aarc.local \
+        --add-host=idp.eiscat-aarc.local:192.168.111.200 \
+        --publish 8443:443 \
+        --publish 37009:37009 \
+        $IMAGE_TAG
+fi
 
-#	   --volume $PWD/workdir:/var/www/html \
-#           --volume $PWD/authdir:/var/www/auth \
-#	   --volume $PWD/archive:/data/archive \
 

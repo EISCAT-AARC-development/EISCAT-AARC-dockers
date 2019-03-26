@@ -1,10 +1,10 @@
 
 # Setup Debian system
 FROM debian:stretch-slim
-RUN apt-get update && apt-get upgrade -y --no-install-recommends
 
 # Install dependencies
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update -y; \
+    apt-get install -y --no-install-recommends \
     ssh rsync \
     git cvs \
     python-mysqldb mariadb-client mariadb-server \
@@ -14,7 +14,6 @@ RUN apt-get install -y --no-install-recommends \
     vim less wget \
     python-pip python-setuptools \
     libapache2-mod-shib2
-RUN apt-get clean
 
 # Install schedule CGI
 RUN mkdir /var/www/html/htdocs
@@ -26,8 +25,10 @@ RUN git config --global http.sslVerify false
 # you will need to run git clone manually in the workdir directory after the container was build and started
 #
 RUN git clone https://www.github.com/EISCAT-AARC-development/schedule.git /var/www/html/htdocs/schedule
-RUN git clone -b eiscathq https://www.github.com/EISCAT-AARC-development/tape_db.git /var/www/html/tape_db
-RUN git clone -b tokenlib_improvements_2 https://www.github.com/EISCAT-AARC-development/shared-auth.git /var/www/auth
+RUN git clone -b portal-authz https://www.github.com/EISCAT-AARC-development/tape_db.git /var/www/html/tape_db
+RUN git clone -b tokenlib_improvements https://www.github.com/EISCAT-AARC-development/shared-auth.git /var/www/auth
+
+RUN cp /var/www/auth/* /var/www/html/tape_db
 
 # Set up apache
 COPY config/apache/schedule.conf /etc/apache2/sites-available/schedule.conf
@@ -69,5 +70,8 @@ RUN cd /etc/shibboleth && chown _shibd sp-*.pem && chmod go= sp-key.pem
 
 COPY config/shibboleth/shibd.sh /var/tmp
 
-ENTRYPOINT service apache2 start && service mysql start && /var/tmp/provision.sh && service shibd start && service shibd status && /var/tmp/show_ip.sh &&/bin/bash
+COPY mysql-shib-httpd-foreground.sh /var/tmp
 
+RUN chmod 744 /var/tmp/mysql-shib-httpd-foreground.sh
+
+CMD ["/var/tmp/mysql-shib-httpd-foreground.sh"]

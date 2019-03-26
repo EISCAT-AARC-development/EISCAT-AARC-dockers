@@ -2,18 +2,26 @@ FROM ubuntu:16.04
 
 EXPOSE 443
 
-RUN apt -y update && apt -y full-upgrade && apt -y autoremove && apt install -y --no-install-recommends sudo dnsutils git software-properties-common
-RUN apt-add-repository -y ppa:ansible/ansible && apt -y update && apt install -y ansible
-RUN apt -y clean
+RUN apt update -y; \
+    apt install -y --no-install-recommends \
+	sudo \
+	dnsutils \
+	git \
+	software-properties-common
 
-RUN git clone https://github.com/surfnet-niels/simplesaml-idp.git /tmp/ansible/simplesaml-idp
+RUN apt-add-repository -y ppa:ansible/ansible; \
+    apt update -y; \ 
+    apt install -y ansible 
+
+RUN git clone https://github.com/OpenConext/OpenConext-DIY  /tmp/ansible/simplesaml-idp
+ 
+COPY config/ansible/openconext-diy.yml  /tmp/ansible/simplesaml-idp/openconext-diy.yml
+
 COPY config/ansible/inventory /tmp/ansible/simplesaml-idp/
-COPY config/ansible/idp.yml /tmp/ansible/simplesaml-idp/group_vars/
+COPY config/ansible/idp.yml /tmp/ansible/simplesaml-idp/group_vars/idp/
 
-RUN  ansible-playbook -i /tmp/ansible/simplesaml-idp/inventory /tmp/ansible/simplesaml-idp/simplesaml-idp.yml
+RUN  ansible-playbook -i /tmp/ansible/simplesaml-idp/inventory /tmp/ansible/simplesaml-idp/openconext-diy.yml
 
 COPY config/metadata /var/www/simplesamlphp/metadata
 
-RUN apt-get update && apt-get install -y vim less
-
-ENTRYPOINT service apache2 start && /bin/bash
+CMD ["apachectl","-D", "FOREGROUND"]

@@ -4,11 +4,13 @@ idp_sp: https://portal.eiscat-aarc.local
 
 cert_hostname: "{{ idp_hostname }}"
 
-letsencrypt_email: idp@idp.eiscat-aarc.loca
+letsencrypt_email: idp@idp.eiscat-aarc.local
 letsencrypt_domain: "{{ idp_hostname }}"
 letsencrypt_request_www: false
 # apache is installed first and claims port 80. Pause it to allow LetsEncrypt to request a certificate
 letsencrypt_pause_services: [apache2]
+
+resolvable_fqdn: true 
 
 ssp_version: 1.15.4
 ssp_hostname: "{{ idp_hostname }}"
