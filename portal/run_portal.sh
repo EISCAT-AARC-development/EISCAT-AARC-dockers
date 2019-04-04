@@ -28,8 +28,8 @@ else
         --ip 192.168.111.100 \
         --hostname portal.eiscat-aarc.local \
         --add-host=idp.eiscat-aarc.local:192.168.111.200 \
+        --add-host=data.eiscat-aarc.local:192.168.111.101 \
         --publish 8443:443 \
-        --publish 37009:37009 \
         $IMAGE_TAG
 fi
 

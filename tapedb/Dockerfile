@@ -15,7 +15,7 @@ RUN apt install -y --no-install-recommends \
     python-pip python-setuptools
 
 # Install schedule CGI
-RUN mkdir -p /var/www/html/htdocs
+#RUN mkdir -p /var/www/html/htdocs
 RUN git config --global http.sslVerify false
 
 #
@@ -23,27 +23,27 @@ RUN git config --global http.sslVerify false
 # As well as some lines in run_portal (see which ones in that file)
 # you will need to run git clone manually in the workdir directory after the container was build and started
 #
-#RUN git clone -b eiscathq https://www.github.com/EISCAT-AARC-development/tape_db.git /var/www/html/tape_db
-RUN git clone -b tokenlib_improvements_2 https://www.github.com/EISCAT-AARC-development/shared-auth.git /var/www/auth
+RUN git clone -b portal-authz https://www.github.com/EISCAT-AARC-development/tape_db.git /var/www/html/tape_db
+RUN git clone -b tokenlib_improvements https://www.github.com/EISCAT-AARC-development/shared-auth.git /var/www/auth
 
-COPY app/tape_db /var/www/html/tape_db
+#COPY app/tape_db /var/www/html/tape_db
 
 # Copy auth stuff to expected location
-COPY config/private_key.pem 	/var/www/auth/private_key.pem
-COPY config/public_key.pem 	/var/www/auth/public_key.pem
+# COPY config/private_key.pem 	/var/www/auth/private_key.pem
+# COPY config/public_key.pem 	/var/www/auth/public_key.pem
 COPY config/institutes.csv 	/var/www/auth/institutes.csv
 COPY config/people.csv 		/var/www/auth/people.csv
 COPY config/superusers.txt 	/var/www/auth/superusers.txt
 
 #Create certs for webservice
-RUN /usr/bin/openssl req -x509 -newkey rsa:4096 -nodes -keyout /var/www/auth/private_key.pem -out /var/www/auth/public_key.pem -days 365 -subj "/C=SE/ST=EISCAT/L=EISCAT/O=EISCAT/OU=Org/CN=tape_db.eiscat-aarc.local"
+#RUN /usr/bin/openssl req -x509 -newkey rsa:4096 -nodes -keyout /var/www/auth/private_key.pem -out /var/www/auth/public_key.pem -days 365 -subj "/C=SE/ST=EISCAT/L=EISCAT/O=EISCAT/OU=Org/CN=tape_db.eiscat-aarc.local"
 
 # use the below if you already have a cert
-COPY config/private_key.pem /var/www/auth/private_key.pem
-COPY config/public_key.pem /var/www/auth/public_key.pem
+# COPY config/private_key.pem /var/www/auth/private_key.pem
+# COPY config/public_key.pem /var/www/auth/public_key.pem
 
 # make sure the private key can be read by apache server
-RUN chown root /var/www/auth/private_key.pem
+#RUN chown root /var/www/auth/private_key.pem
 RUN chmod -Rf 700 /var/www/auth/
 
 # install authlib requirements

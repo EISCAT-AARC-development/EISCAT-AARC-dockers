@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 /etc/init.d/mysql start
 
 ./var/tmp/provision.sh
