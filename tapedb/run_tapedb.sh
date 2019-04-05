@@ -1,9 +1,7 @@
 #! /bin/bash
 TYPE=dev
-IMAGE_TAG=eiscat-aarc/tapedb:v2
+IMAGE_TAG=eiscat-aarc/tapedb:v3
 CONTAINER_NAME=eiscat-aarc-tapedb
-
-set -x
 
 # Build the docker image if needed
 if [[ "$(docker images -q $IMAGE_TAG 2> /dev/null)" == "" ]]; then
@@ -51,7 +49,9 @@ else
     --volume $HOST_TOKEN_SIGNING_PUB_KEY_PATH:$CONTAINER_TOKEN_SIGNING_PUB_KEY_PATH \
     --volume $HOST_DATA_SERVER_SSL_CERT_PATH:$CONTAINER_DATA_SERVER_SSL_CERT_PATH \
     --volume $HOST_DATA_SERVER_SSL_KEY_PATH:$CONTAINER_DATA_SERVER_SSL_KEY_PATH \
+    --volume $RUN_DIR/app/tape_db/tapelib.py:/var/www/html/tape_db/tapelib.py \
     --volume $RUN_DIR/app/tape_db/serve_files.py:/var/www/html/tape_db/serve_files.py \
+    --volume "$RUN_DIR/sample_data/tau2as_cp1@sod":"/data/archive/2003/" \
 	$IMAGE_TAG
 fi
 

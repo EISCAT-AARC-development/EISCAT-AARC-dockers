@@ -6,13 +6,16 @@ RUN apt update
 #RUN apt-get upgrade -y --no-install-recommends
 
 # Install dependencies
+# TODO: remove mariadb-server package once mysql is externalized
 RUN apt install -y --no-install-recommends \
     ssh rsync \
     git cvs \
     python-mysqldb mariadb-client \
     bzip2 net-tools rsyslog \
     vim less wget \
-    python-pip python-setuptools
+    python-pip python-setuptools \
+    mariadb-server
+
 
 # Install schedule CGI
 #RUN mkdir -p /var/www/html/htdocs
@@ -23,7 +26,7 @@ RUN git config --global http.sslVerify false
 # As well as some lines in run_portal (see which ones in that file)
 # you will need to run git clone manually in the workdir directory after the container was build and started
 #
-RUN git clone -b portal-authz https://www.github.com/EISCAT-AARC-development/tape_db.git /var/www/html/tape_db
+RUN git clone -b dev_hack https://www.github.com/EISCAT-AARC-development/tape_db.git /var/www/html/tape_db
 RUN git clone -b tokenlib_improvements https://www.github.com/EISCAT-AARC-development/shared-auth.git /var/www/auth
 
 #COPY app/tape_db /var/www/html/tape_db
@@ -50,11 +53,15 @@ RUN chmod -Rf 700 /var/www/auth/
 COPY config/requirements.txt 	/tmp/requirements.txt
 RUN pip install -r /tmp/requirements.txt
 
+
+#TODO: remove after db is externalized
+#RUN /etc/init.d/mysql start
+COPY config/db.sql.bz2 /var/tmp
+COPY config/permission.sql /var/tmp
+COPY src/provision.sh /var/tmp
+
 COPY app/run_service.sh		/root/
-COPY app/run_tester_service.sh		/root/
+
 RUN  chmod a+x 			/root/run_service.sh
-RUN  chmod a+x 			/root/run_tester_service.sh	
 
-#ENTRYPOINT /root/run_service.sh
-ENTRYPOINT /bin/bash
-
+CMD ["/root/run_service.sh"]
