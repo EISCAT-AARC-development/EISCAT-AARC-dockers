@@ -1,6 +1,6 @@
 #! /bin/bash
 
-IMAGE_TAG=eiscat-aarc/tapedb:v3
+IMAGE_TAG=eiscat-aarc/tapedb:v4
 
 # As the build command is being called, we assume we need to build a new image.
 # To be sure we therefor first remove existign ones
@@ -11,5 +11,5 @@ fi
 
 echo "Building  docker container $IMAGE_TAG ..."
 # Build the docker image
-docker build -t $IMAGE_TAG .
+docker build --no-cache -t $IMAGE_TAG .
 
