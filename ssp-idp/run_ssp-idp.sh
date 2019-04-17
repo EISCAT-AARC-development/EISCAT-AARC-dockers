@@ -1,15 +1,16 @@
 #! /bin/bash
 
 IMAGE_TAG=eiscat-aarc/ssp-idp:v1
-CONTAINER_NAME=eiscat-aarc_ssp-idp
+CONTAINER_NAME=idp
 
-# Steup the netwerk if needed
-if [ ! "$(docker network ls | grep eiscat-aarc.local)" ]; then
-  echo "Creating eiscat-aarc.local network ..."
-  ../dockernet.sh
-else
-  echo "eiscat-aarc.local network exists."
-fi
+# Setup the network if needed
+# if [ ! "$(docker network ls | grep eiscat-aarc.local)" ]; then
+#   echo "Creating eiscat-aarc.local network ..."
+#   ../dockernet.sh
+# else
+#   echo "eiscat-aarc.local network exists."
+# fi
+# 
 
 # Build the docker image if needed
 if [[ "$(docker images -q $IMAGE_TAG 2> /dev/null)" == "" ]]; then
@@ -28,15 +29,15 @@ else
     echo "no docker container found"
     echo "creating container $CONTAINER_NAME from image $IMAGE_TAG"
     docker run -d \
-        --name $CONTAINER_NAME \
-        --net eiscat-aarc.local \
-        --ip 192.168.111.200 \
-        --add-host=portal.eiscat-aarc.local:192.168.111.100 \
-        --add-host=data.eiscat-aarc.local:192.168.111.101 \
-        --add-host=idp.eiscat-aarc.local:192.168.111.200 \
-        --hostname idp.eiscat-aarc.local \
-        --publish 9080:80 \
-        --publish 9443:443 \
-        $IMAGE_TAG
+           --name $CONTAINER_NAME \
+	   --rm \
+	   --network eiscat-aarc.local \
+	   --ip 192.168.111.102 \
+	   --add-host portal:192.168.111.100 \
+	   --add-host data:192.168.111.105 \
+           --hostname idp.eiscat.se \
+	   --publish 192.168.11.102:80:80 \
+	   --publish 192.168.11.102:443:443 \
+           $IMAGE_TAG
 fi
 
