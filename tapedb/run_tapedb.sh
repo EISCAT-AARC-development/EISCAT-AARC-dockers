@@ -1,7 +1,7 @@
 #! /bin/bash
 TYPE=dev
 IMAGE_TAG=eiscat-aarc/tapedb:v4
-CONTAINER_NAME=eiscat-aarc-tapedb
+CONTAINER_NAME=data
 
 # Build the docker image if needed
 if [[ "$(docker images -q $IMAGE_TAG 2> /dev/null)" == "" ]]; then
@@ -33,9 +33,9 @@ HOST_DATA_SERVER_SSL_KEY_PATH=$CONFIG_DIR/private_key.pem
 CONTAINER_DATA_SERVER_SSL_KEY_PATH=/var/www/auth/private_key.pem
 
 DEV_ARGS="--net eiscat-aarc.local \
-	--ip 192.168.111.222 \
-    --volume $RUN_DIR/app/tape_db/tapelib.py:/var/www/html/tape_db/tapelib.py \
-    --volume $RUN_DIR/app/tape_db/serve_files.py:/var/www/html/tape_db/serve_files.py"
+	--ip 192.168.111.105 \
+    --volume $RUN_DIR/app/tape_db:/var/www/html/tape_db"
+
 
 # /archive on host is a RO NFS mount from the actual archive 
 SAMPLE_DATA="--volume /archive:/data/archive"
@@ -50,7 +50,7 @@ if [ "$(docker ps -a -q -f name=$CONTAINER_NAME)" != "" ]; then
 else
     echo "no docker container found"
     echo "creating container $CONTAINER_NAME from image $IMAGE_TAG"
-    docker run -d \
+    docker run -it --rm \
     --name $CONTAINER_NAME \
     --env TOKEN_SIGNING_PUB_KEY_PATH=$CONTAINER_TOKEN_SIGNING_PUB_KEY_PATH \
     --env DATA_SERVER_SSL_CERT_PATH=$CONTAINER_DATA_SERVER_SSL_CERT_PATH \
@@ -60,7 +60,7 @@ else
     --env MYSQL_HOST=$MYSQL_HOST \
     --env MYSQL_PWD=$MYSQL_PWD \
 	--hostname $HOSTNAME \
-	--publish 37009:37009 \
+	--publish 192.168.11.105:37009:37009 \
     --volume $HOST_TOKEN_SIGNING_PUB_KEY_PATH:$CONTAINER_TOKEN_SIGNING_PUB_KEY_PATH \
     --volume $HOST_DATA_SERVER_SSL_CERT_PATH:$CONTAINER_DATA_SERVER_SSL_CERT_PATH \
     --volume $HOST_DATA_SERVER_SSL_KEY_PATH:$CONTAINER_DATA_SERVER_SSL_KEY_PATH \
