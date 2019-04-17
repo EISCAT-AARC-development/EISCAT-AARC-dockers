@@ -13,11 +13,12 @@ fi
 RUN_DIR=$PWD
 CONFIG_DIR="$RUN_DIR/config"
 
-HOSTNAME=tape_db.eiscat-aarc.local
+HOSTNAME=data.eiscat.se
 
-MYSQL_HOST=portal.eiscat-aarc.local
-MYSQL_USER=tape
-MYSQL_PWD=tape
+# SQL db login
+MYSQL_HOST=www.eiscat.se
+MYSQL_USER=archiver
+MYSQL_PWD=ks902jf4
 
 # the location of the auth library
 CONTAINER_PYTHONPATH=/var/www/auth
@@ -36,7 +37,8 @@ DEV_ARGS="--net eiscat-aarc.local \
     --volume $RUN_DIR/app/tape_db/tapelib.py:/var/www/html/tape_db/tapelib.py \
     --volume $RUN_DIR/app/tape_db/serve_files.py:/var/www/html/tape_db/serve_files.py"
 
-SAMPLE_DATA=--volume\ "$RUN_DIR/sample_data/tau2as_cp1@sod":"/data/archive/2003/"
+# /archive on host is a RO NFS mount from the actual archive 
+SAMPLE_DATA="--volume /archive:/data/archive"
 
 # in qa/prod uncomment the following lines
 # DEV_ARGS=""
