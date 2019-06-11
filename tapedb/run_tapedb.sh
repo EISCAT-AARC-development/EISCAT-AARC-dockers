@@ -23,7 +23,7 @@ MYSQL_PWD=ks902jf4
 # the location of the auth library
 CONTAINER_PYTHONPATH=/var/www/auth
 
-HOST_TOKEN_SIGNING_PUB_KEY_PATH=$(realpath ../portal/config/public_key.pem)
+HOST_TOKEN_SIGNING_PUB_KEY_PATH=$CONFIG_DIR/public_key.pem
 CONTAINER_TOKEN_SIGNING_PUB_KEY_PATH=/var/www/auth/token_signing_pub_key.pem
 
 HOST_DATA_SERVER_SSL_CERT_PATH=$CONFIG_DIR/public_key.pem
@@ -33,8 +33,8 @@ HOST_DATA_SERVER_SSL_KEY_PATH=$CONFIG_DIR/private_key.pem
 CONTAINER_DATA_SERVER_SSL_KEY_PATH=/var/www/auth/private_key.pem
 
 DEV_ARGS="--net eiscat-aarc.local \
-	--ip 192.168.111.105 \
-    --volume $RUN_DIR/app/tape_db:/var/www/html/tape_db"
+	--ip 192.168.111.105"
+ #   --volume $RUN_DIR/app/tape_db:/var/www/html/tape_db"
 
 
 # /archive on host is a RO NFS mount from the actual archive 

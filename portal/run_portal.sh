@@ -2,7 +2,7 @@
 
 TYPE=dev
 IMAGE_TAG=eiscat-aarc/portal:v6
-CONTAINER_NAME=eiscat-aarc-portal
+CONTAINER_NAME=portal
 
 # Build the docker image if needed
 if [[ "$(docker images -q $IMAGE_TAG 2> /dev/null)" == "" ]]; then
@@ -26,11 +26,12 @@ else
         --env DATA_DIR=/var/portal \
         --net eiscat-aarc.local \
         --ip 192.168.111.100 \
-        --hostname portal.eiscat-aarc.local \
-        --add-host=idp.eiscat-aarc.local:192.168.111.200 \
-        --add-host=data.eiscat-aarc.local:192.168.111.101 \
-        --publish 8443:443 \
+        --hostname portal.eiscat.se \
+        --add-host=idp.eiscat.se:192.168.111.102 \
+        --add-host=data.eiscat.se:192.168.111.105 \
+        --publish 192.168.11.100:443:443 \
         $IMAGE_TAG
 fi
+
 
 
