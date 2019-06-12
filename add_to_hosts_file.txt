@@ -1,3 +1,8 @@
+# Host entries for dockers
+# Ports forwarded to 192.168.11.x on the host
+# which are in turn 1:1 NAT'ed through the firewall
+# with public DNS entries <name>.eiscat.se
+#
 192.168.111.100   portal.eiscat-aarc.local
-192.168.111.101   data.eiscat-aarc.local
-192.168.111.200   idp.eiscat-aarc.local
+192.168.111.102   idp.eiscat-aarc.local
+192.168.111.105   data.eiscat-aarc.local
